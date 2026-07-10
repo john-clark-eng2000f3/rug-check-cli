@@ -37,3 +37,16 @@ def parse_requirements(path):
     return deps
 
 
+def parse_poetry_lock(path):
+    p = Path(path)
+    if not p.exists():
+        raise FileNotFoundError(f"poetry lock not found: {path}")
+
+    data = tomllib.loads(p.read_text(encoding="utf-8"))
+    deps = []
+    for pkg in data.get("package", []):
+        name = pkg.get("name", "").lower().replace("_", "-")
+        ver = pkg.get("version", "")
+        if name:
+            deps.append({"name": name, "version": ver, "file": str(p)})
+    return deps
