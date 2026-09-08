@@ -40,3 +40,5 @@ rugcheck requirements.txt --min-score 70 --quiet
 ## License
 
 MIT
+
+<!-- generated: 2026-09-08 -->
